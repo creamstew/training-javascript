@@ -35,7 +35,7 @@ function createTask() {
   if (taskText) {
     const task = { id: null, content: taskText, status: '作業中' };
     tasks.push(task);
-    showTask(tasks);
+    showTask();
     document.getElementById('task_text').value = '';
   }
 }
