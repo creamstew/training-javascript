@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript③</title>
+  <script src="./index.js" defer></script>
+</head>
+<body>
+  <h1>ToDoリスト</h1>
+  <p>
+    <input type="radio" name="status" value="all" checked="checked"><label>全て</label>
+    <input type="radio" name="status" value="wip"><label>作業中</label>
+    <input type="radio" name="status" value="done"><label>完了</label>
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>コメント</th>
+        <th>状態</th>
+      </tr>
+    </thead>
+    <tbody id="task_body">
+      <tr>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>新規タスクの追加</h2>
+  <p>
+    <input type="text" id="task_text">
+    <input type="submit" id="add_task" value="追加">
+  </p>
+</body>
+</html>
