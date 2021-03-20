@@ -10,22 +10,27 @@ function showTask() {
   tasks.forEach((task, i) => {
     const tableRecord = document.createElement('tr');
     tableBody.appendChild(tableRecord);
+    const trTag = tableBody.lastChild; 
 
     const taskId = document.createElement('td');
     const taskContent = document.createElement('td');
-    const taskStatus = document.createElement('button');
-    const taskDestroy = document.createElement('button');
+    const tdTaskStatus = document.createElement('td');
+    const tdTaskDestroy = document.createElement('td');
+    const btnTaskStatus = document.createElement('button');
+    const btnTaskDestroy = document.createElement('button');
 
     task.id = i;
     taskId.textContent = task.id;
     taskContent.textContent = task.content;
-    taskStatus.textContent = '作業中';
-    taskDestroy.textContent = '削除';
+    btnTaskStatus.textContent = '作業中';
+    btnTaskDestroy.textContent = '削除';
 
-    tableBody.appendChild(taskId);
-    tableBody.appendChild(taskContent);
-    tableBody.appendChild(taskStatus);
-    tableBody.appendChild(taskDestroy);
+    trTag.appendChild(taskId);
+    trTag.appendChild(taskContent);
+    tdTaskStatus.append(btnTaskStatus)
+    trTag.appendChild(tdTaskStatus);
+    tdTaskDestroy.append(btnTaskDestroy)
+    trTag.appendChild(tdTaskDestroy);
   });
 }
 
