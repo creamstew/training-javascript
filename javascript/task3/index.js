@@ -28,6 +28,9 @@ function showTask() {
     btnTaskDestroy.addEventListener('click', () => {
       destroyTask(i);
     });
+    btnTaskStatus.addEventListener('click', () => {
+      changeStatus(btnTaskStatus);
+    });
 
     trTag.appendChild(taskId);
     trTag.appendChild(taskContent);
@@ -52,6 +55,14 @@ function createTask() {
 function destroyTask(index) {
   tasks.splice(index, 1);
   showTask();
+}
+
+function changeStatus(btnTaskStatus) {
+  if (btnTaskStatus.textContent === '作業中') {
+    btnTaskStatus.textContent = '完了';
+  } else {
+    btnTaskStatus.textContent = '作業中';
+  }
 }
 
 document.getElementById('add_task').addEventListener('click', createTask);
