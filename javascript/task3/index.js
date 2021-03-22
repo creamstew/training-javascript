@@ -10,7 +10,7 @@ function showTask() {
   tasks.forEach((task, i) => {
     const tableRecord = document.createElement('tr');
     tableBody.appendChild(tableRecord);
-    const trTag = tableBody.lastChild; 
+    const trTag = tableBody.lastChild;
 
     const taskId = document.createElement('td');
     const taskContent = document.createElement('td');
@@ -25,11 +25,15 @@ function showTask() {
     btnTaskStatus.textContent = '作業中';
     btnTaskDestroy.textContent = '削除';
 
+    btnTaskDestroy.addEventListener('click', () => {
+      destroyTask(i);
+    });
+
     trTag.appendChild(taskId);
     trTag.appendChild(taskContent);
-    tdTaskStatus.append(btnTaskStatus)
+    tdTaskStatus.append(btnTaskStatus);
     trTag.appendChild(tdTaskStatus);
-    tdTaskDestroy.append(btnTaskDestroy)
+    tdTaskDestroy.append(btnTaskDestroy);
     trTag.appendChild(tdTaskDestroy);
   });
 }
@@ -43,6 +47,11 @@ function createTask() {
     showTask();
     document.getElementById('task_text').value = '';
   }
+}
+
+function destroyTask(index) {
+  tasks.splice(index, 1);
+  showTask();
 }
 
 document.getElementById('add_task').addEventListener('click', createTask);
