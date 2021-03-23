@@ -1,4 +1,5 @@
 const tasks = [];
+let checkedStatus = 'all';
 
 function showTask(statusFilter) {
   const tableBody = document.getElementById('task_body');
@@ -47,7 +48,7 @@ function createTask() {
   if (taskText) {
     const task = { id: tasks.length, content: taskText, status: '作業中' };
     tasks.push(task);
-    filterTasks(document.statusForm.taskStatus.value);
+    filterTasks(checkedStatus);
     document.getElementById('task_text').value = '';
   }
 }
@@ -57,7 +58,7 @@ function destroyTask(index) {
   tasks.forEach((task, i) => {
     task.id = i;
   });
-  filterTasks(document.statusForm.taskStatus.value);
+  filterTasks(checkedStatus);
 }
 
 function changeStatus(btnTaskStatus, task) {
@@ -68,7 +69,7 @@ function changeStatus(btnTaskStatus, task) {
     btnTaskStatus.textContent = '作業中';
     task.status = '作業中';
   }
-  filterTasks(document.statusForm.taskStatus.value);
+  filterTasks(checkedStatus);
 }
 
 function filterTasks(status) {
@@ -97,6 +98,7 @@ function filterTasks(status) {
 const radioButton = document.getElementsByName('taskStatus');
 radioButton.forEach((status, index) => {
   radioButton[index].addEventListener('click', () => {
+    checkedStatus = status.value;
     filterTasks(status.value);
   });
 });
