@@ -1,6 +1,6 @@
 const tasks = [];
 
-function showTask(statusFilter) {
+function showTask(statusFilter = false) {
   const tableBody = document.getElementById('task_body');
 
   while (tableBody.firstChild) {
@@ -88,7 +88,7 @@ function filterTasks(status) {
       break;
     }
     default: {
-      showTask(tasks);
+      showTask();
       break;
     }
   }
