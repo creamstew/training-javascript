@@ -1,13 +1,13 @@
 const tasks = [];
 
-function showTask(statusFilter = []) {
+function showTask(statusFilter = false) {
   const tableBody = document.getElementById('task_body');
 
   while (tableBody.firstChild) {
     tableBody.removeChild(tableBody.firstChild);
   }
 
-  const visibleTasks = statusFilter.length ? statusFilter : tasks;
+  const visibleTasks = statusFilter || tasks;
   visibleTasks.forEach((task) => {
     const tableRecord = document.createElement('tr');
     tableBody.appendChild(tableRecord);
