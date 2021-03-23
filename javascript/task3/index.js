@@ -1,13 +1,14 @@
 const tasks = [];
 
-function showTask() {
+function showTask(statusFilter = false) {
   const tableBody = document.getElementById('task_body');
 
   while (tableBody.firstChild) {
     tableBody.removeChild(tableBody.firstChild);
   }
 
-  tasks.forEach((task, i) => {
+  const visibleTasks = statusFilter || tasks;
+  visibleTasks.forEach((task) => {
     const tableRecord = document.createElement('tr');
     tableBody.appendChild(tableRecord);
     const trTag = tableBody.lastChild;
@@ -19,17 +20,16 @@ function showTask() {
     const btnTaskStatus = document.createElement('button');
     const btnTaskDestroy = document.createElement('button');
 
-    task.id = i;
     taskId.textContent = task.id;
     taskContent.textContent = task.content;
-    btnTaskStatus.textContent = '作業中';
+    btnTaskStatus.textContent = task.status;
     btnTaskDestroy.textContent = '削除';
 
     btnTaskDestroy.addEventListener('click', () => {
-      destroyTask(i);
+      destroyTask(task.id);
     });
     btnTaskStatus.addEventListener('click', () => {
-      changeStatus(btnTaskStatus);
+      changeStatus(btnTaskStatus, task);
     });
 
     trTag.appendChild(taskId);
@@ -45,24 +45,60 @@ function createTask() {
   const taskText = document.getElementById('task_text').value;
 
   if (taskText) {
-    const task = { id: null, content: taskText, status: '作業中' };
+    const task = { id: tasks.length, content: taskText, status: '作業中' };
     tasks.push(task);
-    showTask();
+    filterTasks(document.statusForm.taskStatus.value);
     document.getElementById('task_text').value = '';
   }
 }
 
 function destroyTask(index) {
   tasks.splice(index, 1);
-  showTask();
+  tasks.forEach((task, i) => {
+    task.id = i;
+  });
+  filterTasks(document.statusForm.taskStatus.value);
 }
 
-function changeStatus(btnTaskStatus) {
+function changeStatus(btnTaskStatus, task) {
   if (btnTaskStatus.textContent === '作業中') {
     btnTaskStatus.textContent = '完了';
+    task.status = '完了';
   } else {
     btnTaskStatus.textContent = '作業中';
+    task.status = '作業中';
+  }
+  filterTasks(document.statusForm.taskStatus.value);
+}
+
+function filterTasks(status) {
+  switch (status) {
+    case 'wip': {
+      const wipTasks = tasks.filter((task) => {
+        return task.status === '作業中';
+      });
+      showTask(wipTasks);
+      break;
+    }
+    case 'done': {
+      const doneTasks = tasks.filter((todo) => {
+        return todo.status === '完了';
+      });
+      showTask(doneTasks);
+      break;
+    }
+    default: {
+      showTask();
+      break;
+    }
   }
 }
+
+const radioButton = document.getElementsByName('taskStatus');
+radioButton.forEach((status, index) => {
+  radioButton[index].addEventListener('click', () => {
+    filterTasks(status.value);
+  });
+});
 
 document.getElementById('add_task').addEventListener('click', createTask);
